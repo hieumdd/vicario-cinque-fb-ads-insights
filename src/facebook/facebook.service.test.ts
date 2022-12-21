@@ -1,7 +1,7 @@
 import { pipelineService } from './facebook.service';
 import { ADS_INSIGHTS, COUNTRY_INSIGHTS } from './pipeline.const';
 
-const cases = [COUNTRY_INSIGHTS];
+const cases = [ADS_INSIGHTS, COUNTRY_INSIGHTS];
 
 describe('Facebook Service', () => {
     it.each(cases)('Pipeline Service $name', async (pipeline) => {

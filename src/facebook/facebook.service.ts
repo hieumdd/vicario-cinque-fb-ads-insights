@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import Joi from 'joi';
 
 import { Pipeline } from './pipeline.const';
 import { get } from './facebook.repository';
@@ -22,8 +23,6 @@ export const pipelineService = async (options: PipelineOptions, pipeline: Pipeli
         start,
         end,
     })
-        .then((rows) =>
-            rows.map((row) => pipeline.validationSchema.validate(row, { abortEarly: false }).value),
-        )
+        .then((rows) => rows.map((row) => Joi.attempt(row, pipeline.validationSchema)))
         .then((data) => load(data, { table: pipeline.name, schema: pipeline.schema }));
 };

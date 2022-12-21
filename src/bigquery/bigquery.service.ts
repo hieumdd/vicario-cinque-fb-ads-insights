@@ -24,7 +24,7 @@ const addBatchedAt = ({ rows, schema }: AddBatchedAtOptions) => [
     [...schema, { name: '_batched_at', type: 'TIMESTAMP' }],
 ];
 
-export const load = (rows: Record<string, any>[], options: LoadOptions) => {
+export const load = async (rows: Record<string, any>[], options: LoadOptions) => {
     const [_rows, fields] = addBatchedAt({ rows, schema: options.schema });
 
     const tableWriteStream = client.dataset(DATASET).table(`p_${options.table}`).createWriteStream({
